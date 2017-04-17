@@ -147,7 +147,7 @@ func (h handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	c.SetSiteURLHeader(app.GetProtocol(r) + "://" + r.Host)
-	l4g.Info(r)
+	l4g.Info(r.TLS)
 	l4g.Info(app.GetProtocol(r) + "://" + r.Host)
 
 	w.Header().Set(model.HEADER_REQUEST_ID, c.RequestId)
