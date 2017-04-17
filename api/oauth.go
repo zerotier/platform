@@ -4,6 +4,7 @@
 package api
 
 import (
+	"bytes"
 	"crypto/tls"
 	b64 "encoding/base64"
 	"fmt"
@@ -759,11 +760,12 @@ func AuthorizeOAuthUser(service, code, state, redirectUri string) (io.ReadCloser
 	if resp, err := client.Do(req); err != nil {
 		return nil, "", nil, model.NewLocAppError("AuthorizeOAuthUser", "api.user.authorize_oauth_user.token_failed.app_error", nil, err.Error())
 	} else {
-		ar = model.AccessResponseFromJson(resp.Body)
+		respBody, _ = ioutil.ReadAll(resp.Body)
 		defer func() {
 			ioutil.ReadAll(resp.Body)
 			resp.Body.Close()
 		}()
+		ar = model.AccessResponseFromJson(bytes.NewReader(respBody))
 		if ar == nil {
 			return nil, "", nil, model.NewLocAppError("AuthorizeOAuthUser", "api.user.authorize_oauth_user.bad_response.app_error", nil, "")
 		}
