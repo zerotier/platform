@@ -67,36 +67,33 @@ export function loadMe(callback) {
 }
 
 export function loadMeAndConfig(callback) {
-    loadMe(() => {
-        getClientConfig()(store.dispatch, store.getState).then(
-            (config) => {
-                global.window.mm_config = config;
+    getClientConfig()(store.dispatch, store.getState).then((config) => {
+        global.window.mm_config = config;
 
-                if (global.window && global.window.analytics) {
-                    global.window.analytics.identify(global.window.mm_config.DiagnosticId, {}, {
-                        context: {
-                            ip: '0.0.0.0'
-                        },
-                        page: {
-                            path: '',
-                            referrer: '',
-                            search: '',
-                            title: '',
-                            url: ''
-                        },
-                        anonymousId: '00000000000000000000000000'
-                    });
+        if (global.window && global.window.analytics) {
+            global.window.analytics.identify(global.window.mm_config.DiagnosticId, {}, {
+                context: {
+                    ip: '0.0.0.0'
+                },
+                page: {
+                    path: '',
+                    referrer: '',
+                    search: '',
+                    title: '',
+                    url: ''
+                },
+                anonymousId: '00000000000000000000000000'
+            });
+        }
+
+        loadMe();
+        getLicenseConfig()(store.dispatch, store.getState).then(
+            (license) => { // eslint-disable-line max-nested-callbacks
+                global.window.mm_license = license;
+
+                if (callback) {
+                    callback();
                 }
-
-                getLicenseConfig()(store.dispatch, store.getState).then(
-                    (license) => { // eslint-disable-line max-nested-callbacks
-                        global.window.mm_license = license;
-
-                        if (callback) {
-                            callback();
-                        }
-                    }
-                );
             }
         );
     });
