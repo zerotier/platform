@@ -394,7 +394,7 @@ func (s *ServiceSettings) SetDefaults() {
 	}
 
 	if s.AllowFrameFrom == nil {
-		s.AllowFrameFrom = NewString(SERVICE_SETTINGS_ALLOW_FRAME_FROM)
+		s.AllowFrameFrom = NewString(SERVICE_SETTINGS_DEFAULT_ALLOW_FRAME_FROM)
 	}
 
 	if s.AllowCookiesForSubdomains == nil {
