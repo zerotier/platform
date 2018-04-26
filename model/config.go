@@ -84,6 +84,7 @@ const (
 	SERVICE_SETTINGS_DEFAULT_WRITE_TIMEOUT      = 300
 	SERVICE_SETTINGS_DEFAULT_MAX_LOGIN_ATTEMPTS = 10
 	SERVICE_SETTINGS_DEFAULT_ALLOW_CORS_FROM    = ""
+	SERVICE_SETTINGS_DEFAULT_ALLOW_FRAME_FROM   = ""
 	SERVICE_SETTINGS_DEFAULT_LISTEN_AND_ADDRESS = ":8065"
 
 	TEAM_SETTINGS_DEFAULT_MAX_USERS_PER_TEAM       = 50
@@ -194,6 +195,7 @@ type ServiceSettings struct {
 	EnforceMultifactorAuthentication                  *bool
 	EnableUserAccessTokens                            *bool
 	AllowCorsFrom                                     *string
+	AllowFrameFrom                                    *string
 	AllowCookiesForSubdomains                         *bool
 	SessionLengthWebInDays                            *int
 	SessionLengthMobileInDays                         *int
@@ -389,6 +391,10 @@ func (s *ServiceSettings) SetDefaults() {
 
 	if s.AllowCorsFrom == nil {
 		s.AllowCorsFrom = NewString(SERVICE_SETTINGS_DEFAULT_ALLOW_CORS_FROM)
+	}
+
+	if s.AllowFrameFrom == nil {
+		s.AllowFrameFrom = NewString(SERVICE_SETTINGS_ALLOW_FRAME_FROM)
 	}
 
 	if s.AllowCookiesForSubdomains == nil {
