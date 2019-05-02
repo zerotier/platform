@@ -154,11 +154,11 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// w.Header().Set("X-Frame-Options", "SAMEORIGIN")
 		w.Header().Set("X-Frame-Options", "ALLOW FROM https://my.zerotier.com")
 		// Set content security policy. This is also specified in the root.html of the webapp in a meta tag.
-		w.Header().Set("Content-Security-Policy", fmt.Sprintf(
-            "frame-ancestors 'self' %s; script-src 'self' 'unsafe-inline' 'cdn.rudderlabs.com cdn.segment.com/analytics.js/%s",
-            "https://my.zerotier.com"
-			h.cspShaDirective,
-		))
+		// w.Header().Set("Content-Security-Policy", fmt.Sprintf(
+		// 	"frame-ancestors 'self' %s; script-src 'self' 'unsafe-inline' cdn.segment.com/analytics.js/%s",
+		// 	"https://my.zerotier.com",
+		// 	h.cspShaDirective,
+		// ))
 	} else {
 		// All api response bodies will be JSON formatted by default
 		w.Header().Set("Content-Type", "application/json")
