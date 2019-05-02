@@ -155,7 +155,7 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Frame-Options", "ALLOW FROM https://my.zerotier.com")
 		// Set content security policy. This is also specified in the root.html of the webapp in a meta tag.
 		w.Header().Set("Content-Security-Policy", fmt.Sprintf(
-            "frame-ancestors 'self' %s; script-src 'self' cdn.rudderlabs.com cdn.segment.com/analytics.js/%s",
+            "frame-ancestors 'self' %s; script-src 'self' 'unsafe-inline' 'cdn.rudderlabs.com cdn.segment.com/analytics.js/%s",
             "https://my.zerotier.com"
 			h.cspShaDirective,
 		))
